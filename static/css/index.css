@@ -21,10 +21,11 @@
 }
 
 #dropbox .message{
-  font-size: 11px;
+  font-size: 20px;
     text-align: center;
     padding-top:160px;
     display: block;
+    color: #ccc;
 }
 
 #dropbox .message i{

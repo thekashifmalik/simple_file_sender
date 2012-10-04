@@ -1,108 +1,63 @@
-var template = '<div class="preview">'+
-            '<span class="imageHolder">'+
-              '<img />'+
-              '<span class="uploaded"></span>'+
-            '</span>'+
-            '<div class="progressHolder">'+
-              '<div class="progress"></div>'+
-            '</div>'+
-          '</div>';
-
-function createImage(file) {
-
-  var preview = $(template),
-    image = $('img', preview);
-
-  var reader = new FileReader();
-
-  image.width = 100;
-  image.height = 100;
-
-  reader.onload = function(e){
-
-    // e.target.result holds the DataURL which
-    // can be used as a source of the image:
-
-    image.attr('src',e.target.result);
-  };
-
-  // Reading the file as a DataURL. When finished,
-  // this will trigger the onload function above:
-  reader.readAsDataURL(file);
-
-  message.hide();
-  preview.appendTo(dropbox);
-
-  // Associating a preview container
-  // with the file, using jQuery's $.data():
-
-  $.data(file,preview);
+var file;
+// Check for the various File API support.
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+	// All the File APIs are supported.
+}
+else {
+	alert('The File APIs are not fully supported in this browser.');
 }
 
-$(function(){
 
-  var dropbox = $('#dropbox'),
-    message = $('.message', dropbox);
+function handleFileSelect(evt) {
+	evt.stopPropagation();
+	evt.preventDefault();
 
-  dropbox.filedrop({
-    // The name of the $_FILES entry:
-    paramname:'file',
+	var files = evt.dataTransfer.files; // FileList object.
+	// files is a FileList of File objects.
+	file = files[0];
+	var output = escape(file.name) + ' (' + file.type + ') - ' + file.size + ' bytes';
+	document.getElementById('message').innerHTML = output;
 
-    maxfiles: 1,
-      maxfilesize: 4096, // in mb
-    url: '/upload',
+	sendFile(file);
+}
 
-    uploadFinished:function(i,file,response){
-      $.data(file).addClass('done');
-      // response is the JSON object that post_file.php returns
-    },
+function sendFile(f){
+	var form = new FormData();
+	form.append("file", f);
+	prepare_ajax();
+	$.ajax({
+		url: "/upload/",
+		type: "POST",
+		data: form,
+		processData: false,  // tell jQuery not to process the data
+		contentType: false   // tell jQuery not to set contentType
+	});
+}
 
-      error: function(err, file) {
-      switch(err) {
-        case 'BrowserNotSupported':
-          showMessage('Your browser does not support HTML5 file uploads!');
-          break;
-        case 'TooManyFiles':
-          alert('Too many files! Please select 5 at most!');
-          break;
-        case 'FileTooLarge':
-          alert(file.name+' is too large! Please upload files up to 2mb.');
-          break;
-        default:
-          break;
-      }
-    },
+function handleDragOver(evt) {
+	evt.stopPropagation();
+	evt.preventDefault();
+	evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+}
 
-    // Called before each upload is started
-    beforeEach: function(file){
-      /*if(!file.type.match(/^image\//)){
-        alert('Only images are allowed!');
+function handleDragEnter(evt){
+	evt.stopPropagation();
+	evt.preventDefault();
 
-        // Returning false will cause the
-        // file to be rejected
-        return false;
-      }*/
-      return true;
-    },
+	var output = 'Let Go!';
+	document.getElementById('message').innerHTML = output;
+}
 
-    uploadStarted:function(i, file, len){
-      createImage(file);
-    },
+function handleDragExit(evt){
+	evt.stopPropagation();
+	evt.preventDefault();
 
-    progressUpdated: function(i, file, progress) {
-      $.data(file).find('.progress').width(progress);
-    }
-
-  });
-
-  var template = '...';
-
-  function createImage(file){
-    // ... see above ...
-  }
-
-  function showMessage(msg){
-    message.html(msg);
-  }
-
-});
+	var output = 'Drop File Here!';
+	document.getElementById('message').innerHTML = output;
+}
+// Setup the drag and drop listeners.
+var dropZone = document.getElementById('dropbox');
+dropZone.addEventListener('dragover', handleDragOver, false);
+dropZone.addEventListener('dragenter', handleDragEnter, false);
+dropZone.addEventListener('dragexit', handleDragExit, false);
+dropZone.addEventListener('drop', handleFileSelect, false);

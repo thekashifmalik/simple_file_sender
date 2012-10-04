@@ -1,29 +1,21 @@
 {% extends 'base.html' %}
 
 {% block css %}
-<link href="{{STATIC_URL}}css/index.css" rel="stylesheet">
+	<link href="{{STATIC_URL}}css/index.css" rel="stylesheet">
 {% endblock css %}
 
 {% block js %}
-  <script src="{{STATIC_URL}}js/index.js" type="text/javascript"></script>
-  <script src="{{STATIC_URL}}js/jquery.filedrop.js" type="text/javascript"></script>
-
+	<script src="{{STATIC_URL}}js/ajax_utils.js" type="text/javascript"></script>
+	<script src="{{STATIC_URL}}js/index.js" type="text/javascript"></script>
 {% endblock js %}
 
 {% block body %}
 
-<form id="file-form" action="/upload" enctype="multipart/form-data" method="post">
-<p>
-File:
-<input type="file" name="datafile" size="40">
-</p>
-<div>
-<input type="submit" value="Send">
-</div>
-</form>
-
 <div id="dropbox">
-    <span class="message">Drop images here to upload. <br /><i>(they will only be visible to you)</i></span>
+    <span id="message" class="message">Drop File Here!</span>
 </div>
+
+<!-- <div id="dropbox"> -->
+<!-- </div> -->
 
 {% endblock body %}
