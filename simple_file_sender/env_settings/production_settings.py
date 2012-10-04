@@ -35,18 +35,12 @@ CELERY_REDIS_DB = 0
 # Not Working with Django ORM
 # CELERYBEAT_SCHEDULER = " djcelery.schedulers.DatabaseScheduler"
 
-# Dajax
-DAJAXICE_MEDIA_PREFIX ="dajaxice"
-DAJAXICE_DEBUG = False
-
 # Protected variables
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # Amazon S3 setting
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
 os.environ['MEMCACHE_SERVERS'] = os.environ.get('MEMCACHIER_SERVERS', '')
 os.environ['MEMCACHE_USERNAME'] = os.environ.get('MEMCACHIER_USERNAME', '')
@@ -63,4 +57,3 @@ CACHES = {
 }
 
 # Browser ID settings
-# SITE_URL = 'http://kalail.com'
