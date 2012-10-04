@@ -21,7 +21,8 @@ def relative_path(relative_root_path, target_file):
     return os.path.join(relative_root_path, target_file)
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('kalail', 'kalail@kalail.com'),
+    ('gpeal', 'gabriel@gpeal.com'),
 )
 
 MANAGERS = ADMINS
@@ -79,7 +80,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -124,6 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'simple_file_sender',
     'south',
+    'storages',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -155,6 +157,9 @@ LOGGING = {
     }
 }
 
+STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_STORAGE_BUCKET_NAME = 'simple_file_sender_static'
+AWS_MEDIA_BUCKET_NAME = 'simple_file_sender_media'
 
 # Set up Sessions
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
