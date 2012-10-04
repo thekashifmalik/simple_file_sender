@@ -12,6 +12,16 @@
 
 {% block body %}
 
+<form id="file-form" action="/upload" enctype="multipart/form-data" method="post">
+<p>
+File:
+<input type="file" name="datafile" size="40">
+</p>
+<div>
+<input type="submit" value="Send">
+</div>
+</form>
+
 <div id="dropbox">
     <span class="message">Drop images here to upload. <br /><i>(they will only be visible to you)</i></span>
 </div>

@@ -46,10 +46,10 @@ $(function(){
 
   dropbox.filedrop({
     // The name of the $_FILES entry:
-    paramname:'pic',
+    paramname:'file',
 
-    maxfiles: 5,
-      maxfilesize: 2, // in mb
+    maxfiles: 1,
+      maxfilesize: 4096, // in mb
     url: '/upload',
 
     uploadFinished:function(i,file,response){
@@ -74,15 +74,16 @@ $(function(){
     },
 
     // Called before each upload is started
-    /*beforeEach: function(file){
-      if(!file.type.match(/^image\//)){
+    beforeEach: function(file){
+      /*if(!file.type.match(/^image\//)){
         alert('Only images are allowed!');
 
         // Returning false will cause the
         // file to be rejected
         return false;
-      }
-    },*/
+      }*/
+      return true;
+    },
 
     uploadStarted:function(i, file, len){
       createImage(file);
