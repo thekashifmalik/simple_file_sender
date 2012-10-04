@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'simple_file_sender',
     'south',
+    'storages',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -156,6 +157,9 @@ LOGGING = {
     }
 }
 
+STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_STORAGE_BUCKET_NAME = 'simple_file_sender_static'
+AWS_MEDIA_BUCKET_NAME = 'simple_file_sender_media'
 
 # Set up Sessions
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
