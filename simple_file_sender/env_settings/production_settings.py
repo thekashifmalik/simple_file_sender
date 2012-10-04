@@ -4,7 +4,8 @@ import os
 import django
 
 DEBUG = TEMPLATE_DEBUG = False
-STATIC_URL = 'https://s3.amazonaws.com/simple_file_sender_static/'
+STATIC_URL = 'https://s3.amazonaws.com/simple_file_sender/static/'
+MEDIA_URL = 'https://s3.amazonaws.com/simple_file_sender/media/'
 
 # calculated paths for django and the site
 # used as starting points for various other paths

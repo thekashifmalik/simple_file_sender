@@ -1,7 +1,7 @@
 # Django settings for simple_file_sender project.
 import socket
 import os
-import django
+import django 
 
 app_env = os.environ["SIMPLE_FILE_SENDER_ENV"]
 
@@ -52,12 +52,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_ROOT = relative_path(SITE_ROOT, 'media'),
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -154,9 +149,9 @@ LOGGING = {
     }
 }
 
-STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-AWS_STORAGE_BUCKET_NAME = 'simple_file_sender_static'
-AWS_MEDIA_BUCKET_NAME = 'simple_file_sender_media'
+DEFAULT_FILE_STORAGE = 'simple_file_sender.s3utils.MediaRootS3BotoStorage'
+STATICFILES_STORAGE = 'simple_file_sender.s3utils.StaticRootS3BotoStorage'
+AWS_STORAGE_BUCKET_NAME = 'simple_file_sender'
 
 # Set up Sessions
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
