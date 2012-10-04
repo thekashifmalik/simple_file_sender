@@ -21,7 +21,8 @@ def relative_path(relative_root_path, target_file):
     return os.path.join(relative_root_path, target_file)
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('kalail', 'kalail@kalail.com'),
+    ('gpeal', 'gabriel@gpeal.com'),
 )
 
 MANAGERS = ADMINS
