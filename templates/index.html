@@ -6,14 +6,14 @@
 
 {% block js %}
   <script src="{{STATIC_URL}}js/index.js" type="text/javascript"></script>
+  <script src="{{STATIC_URL}}js/jquery.filedrop.js" type="text/javascript"></script>
 
 {% endblock js %}
 
 {% block body %}
 
 <div id="dropbox">
-    <span id="droplabel">Drop file here...</span>
+    <span class="message">Drop images here to upload. <br /><i>(they will only be visible to you)</i></span>
 </div>
-<img id="preview" alt="[ preview will display here ]" />
 
 {% endblock body %}
