@@ -1,4 +1,5 @@
 var file;
+/* This following should be wrapped in $(document).ready(function() { ... }); */
 // Check for the various File API support.
 if (window.File && window.FileReader && window.FileList && window.Blob) {
 	// All the File APIs are supported.
@@ -16,6 +17,7 @@ function handleFileSelect(evt) {
 	// files is a FileList of File objects.
 	file = files[0];
 	var output = escape(file.name) + ' (' + file.type + ') - ' + file.size + ' bytes';
+	/* why not use jQuery for this? */
 	document.getElementById('message').innerHTML = output;
 
 	sendFile(file);
@@ -44,7 +46,9 @@ function handleDragEnter(evt){
 	evt.stopPropagation();
 	evt.preventDefault();
 
+	/* why is output its own variable? */
 	var output = 'Let Go!';
+	/* why not use jQuery for this? */
 	document.getElementById('message').innerHTML = output;
 }
 
@@ -55,6 +59,9 @@ function handleDragExit(evt){
 	var output = 'Drop File Here!';
 	document.getElementById('message').innerHTML = output;
 }
+
+/* This following should be wrapped in $(document).ready(function() { ... }); */
+/* NIT: more conventional names would be onDragOver and onDragEnter etc */
 // Setup the drag and drop listeners.
 var dropZone = document.getElementById('dropbox');
 dropZone.addEventListener('dragover', handleDragOver, false);
